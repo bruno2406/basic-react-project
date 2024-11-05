@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 
 import './styles.css';
+import React from 'react';
 
 import { Posts } from '../../components/Posts';
 import { loadPosts } from '../../utils/load-posts'
@@ -16,7 +17,7 @@ export const Home = () => {
 
   const noMorePosts = page + postsPerPage >= allPosts.length;
 
-  const filteredPosts = !!searchValue ?
+  const filteredPosts = searchValue ?
     allPosts.filter(post => {
       return post.title.toLowerCase().includes(
         searchValue.toLowerCase()
@@ -25,7 +26,7 @@ export const Home = () => {
 
   const handleLoadPosts = useCallback(async (page, postsPerPage) => {
     const postsAndPhotos = await loadPosts();
-    
+
     setPosts(postsAndPhotos.slice(page, postsPerPage));
     setAllPosts(postsAndPhotos);
   }, [])
